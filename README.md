@@ -100,7 +100,7 @@ linux有7种运行等级，一般运行在等级3，开机后：
 ### 手动开关服务(了解即可)
 所有的服务类应用放init.d里，自启动的在rc3.d里建个软链   
 
-```javascript
+```
 /etc/init.d/
 mysqld php-fpm pureftpd nginx/httpd redis-server
 ```
@@ -108,7 +108,7 @@ mysqld php-fpm pureftpd nginx/httpd redis-server
 >yum安装的软件，才会自动放置该脚本  
 
 service 命令可用来开关服务，实际是语法糖
-```javascript
+```
 以下两者等价
 service mysqld start/stop/restart/status 
 /etc/init.d/mysqld start/stop/restart/status
@@ -152,13 +152,13 @@ CLASSPATH	| java类的查找目录，.:/usr/lib/jvm/java-1.8/lib/dt.jar:/usr/lib
 PATH	| /usr/local/bin:/usr/sbin:/usr/bin
 
 为了便于管理，PATH默认这三个足够。后续安装软件如需任意路径执行，可向/usr/local/bin中添加软链
-```javascript
+```
 ln -s /usr/local/spark/bin/spark /usr/local/bin/spark
 软链名字最好与程序名一致，使用统一
 如果该路径下有多个执行程序，一一添加麻烦，可加入path
 ```
 设置别名/环境变量案例
-```javascript
+```
 vi ~/.bashrc
 # vi ~/.bash_profile
 export JAVA_HOME=/usr/lib/jvm/java-1.7
@@ -172,7 +172,7 @@ alias wb="cd /data/wwwroot/temp/ant && npm run build"
 默认屏蔽一切外部的访问，随着应用的安装逐渐开放端口（诸如80）。如果不打开对应端口，应用就无法通信。  
 
 >当然关闭防火墙很简单粗暴，但是不安全
-```javascript
+```
 启动/自启动防火墙
 service  iptables start/stop/restart
 chkconfig iptables on/off
@@ -220,7 +220,7 @@ ip配置  
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
 dns配置
-```javascript 
+``` 
 vi /etc/resolv.conf
 加入：
 nameserver 10.100.29.35
@@ -242,7 +242,7 @@ yum 是linux用来安装软件的工具，其特点：
 
 yum 需先配置镜像源，镜像源配置如下：
 
-```python 
+``` 
 描述文件
 /etc/yum.repos.d/xxx.repo
 名字后缀为.repo即可
@@ -318,6 +318,8 @@ vi /somepath/git/post-update
 cd /somepath/imaoda.com/g && unset GIT_DIR && git pull
 # 这里unset GIT_DIR 一定要加
 ```
+
+
 
 
 
