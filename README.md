@@ -1,4 +1,4 @@
-本文章内容收录自一位同事的博客，记录的都是一些最常用的Linux操作和命令，为了方便自己学习和查阅，同时也为了加深记忆，故收录在此！也欢迎大家对我同事的github进行关注[@imaoda！](https://github.com/imaoda)
+本文章内容收录自一位同事的博客，记录的都是一些最常用的Linux操作和命令，为了方便自己学习和查阅，同时也为了加深记忆，故收录在此，今后也会随着对Linux的学习对下面的内容进行增补！也欢迎大家对我同事的github进行关注[@imaoda！](https://github.com/imaoda)
 
 ## 基础操作
 命令 | 操作 | 备注
@@ -68,7 +68,25 @@ r	| 可读取 |	可查看(ls)
 w	| 可编辑	| 可在该目录下增改删
 x |	可执行	| 可进入目录(cd)
 
+上面所说的用户和组，都保存在/etc配置下：
 
+文件名 | 描述
+---- | ----
+/etc/passwd	| 用户信息：用户名UIDGID
+/etc/group	| 组信息：组名GIDuser1,user2
+/etc/shadow	| 存加密密码：第八位改0可使账号临时失效
+
+> 在/etc/passwd中可以看到诸如mysql的账号，是系统和服务给自己设定了一个较小权限的账号来运行服务
+
+root 有权限操作用户： 
+
+操作 | 命令
+---- | ----
+创建用户	| useradd maoda ; passwd maoda
+删除用户	| userdel -r maoda
+切换用户	| su maoda
+创建组	| group add family
+加入组	| usermod -a -G family maoda
 
 
 
