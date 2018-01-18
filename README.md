@@ -1,4 +1,4 @@
-本文章内容收录在一位同事的博客，记录的都是一些最常用的Linux操作和命令，为了方便自己学习和查阅，同时也为了加深记忆，故收录在此！也欢迎大家对我同事的[github进行关注](https://github.com/imaoda)
+本文章内容收录在一位同事的博客，记录的都是一些最常用的Linux操作和命令，为了方便自己学习和查阅，同时也为了加深记忆，故收录在此！也欢迎大家对我同事的github进行关注[@imaoda](https://github.com/imaoda)
 
 ## 基础操作
 命令 | 操作 | 备注
@@ -28,4 +28,27 @@
 创建软链 | ln -s file link	| 快捷方式，可放在path定义的目录下
 后台运行 | nohup command &	| 退出终端需要用exit，否则程序中断
 远程拷贝 |	scp file root@ip:/root	| 最好先ssh免密
-流量监控 | ifstat	| 查看上传下载流量
+流量监控 | ifstat	| 查看上传下载流量  
+
+> 如果某个应用只有一个执行文件，如node、npm，可将其软链放置到/usr/local/bin中，并添加到path中，避免path中过多路径
+
+Linux默认目录的作用：
+目录 | 作用
+----|------
+/usr/bin	 | 非必须用户命令：gcc make
+/usr/sbin	| 非必须系统命令：httpd sendmail
+/bin	| 必须用户命令：mkdir cp
+/sbin	| 必须系统命令(需root)：reboot fdisk
+/usr/local	| 用户安装软件的位置 【常用】
+/usr/local/bin	| 放置一些/usr/local里安装程序的link
+/home	| 其他用户的~，比如/home/maoda
+/root	| 管理员的home
+/etc	| 配置：账密、开机启动、hosts修改
+~/.bashrc | 修改当前用户的环境变量，source ~/.bashrc生效
+
+
+
+
+
+
+
