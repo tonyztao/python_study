@@ -105,6 +105,15 @@ linux有7种运行等级，一般运行在等级3，开机后：
 mysqld php-fpm pureftpd nginx/httpd redis-server
 ```
 
+>yum安装的软件，才会自动放置该脚本  
+
+service 命令可用来开关服务，实际是语法糖
+```javascript
+以下两者等价
+service mysqld start/stop/restart/status 
+/etc/init.d/mysqld start/stop/restart/status
+```
+
 ## 环境变量
 
 环境变量是程序之间调用的纽带，承载的是路径；  
