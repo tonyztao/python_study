@@ -266,8 +266,8 @@ passwd www
 
 ## git
 创建私有 git，便于代码的一键同步（替代原来的 svn）
-```python
-####### 创建git账号 ###
+
+>####### 创建git账号 ###
 # 添加账号
 useradd git | passwd git Asdqwe123
 
@@ -316,7 +316,7 @@ vi /somepath/git/post-update
 #!/bin/sh
 cd /somepath/imaoda.com/g && unset GIT_DIR && git pull
 # 这里unset GIT_DIR 一定要加
-```
+
 
 
 
