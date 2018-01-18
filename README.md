@@ -247,6 +247,76 @@ yum 需先配置镜像源，镜像源配置如下：
 /etc/yum.repos.d/xxx.repo
 名字后缀为.repo即可
 ```
+>建议使用阿里云镜像加速，修改完需执行 yum makecache把镜像库缓存到本地。公司linux版本号有问题，应为6,却显示为6Server，因此连不上镜像，需手动修改repo里$releasever为6，偶尔gpgcheck报错，可在.repo配置里置0关闭验证
+
+## FTP
+安装vsftpd，便于大量文件上传  
+```python
+yum install vsftpd -y
+vi /etc/vsftpd/vsftpd.conf (其实默认即可)
+//启动ftp
+service vsftpd start
+//设置开机启动
+chkconfig vsftpd on
+//配置ftp账号
+useradd www
+passwd www
+```
+>使用ftp请建立一个ftp的账户，不要使用root
+
+## git
+创建私有 git，便于代码的一键同步（替代原来的 svn）
+```python
+####### 创建git账号 ###
+# 添加账号
+useradd git | passwd git Asdqwe123
+
+####### 安装git软件 ###
+yum install git
+
+（以下所有操作在git账号下进行）
+
+######## 配置免密登录 #####
+# 在需要免密的账号@设备下创建 rsa
+ssh-keygen -t rsa  (后将生成的文件rz到服务器中)
+# 把id_rsa.pub内容追加到 /home/git/.ssh/authorized_keys
+mkdir -p /home/git/.ssh 
+cat id_rsa.pub >> /home/git/.ssh/authorized_keys && rm -rf id_rsa.pub
+# 如果不行，请以root身份vi /etc/ssh/sshd_config修改StrictModes no 后service sshd restart
+
+注意！ 每次生成新的rsa_key老的就失效，git钩子需要自己给自己免密
+
+######## 初始化服务器仓库 ######
+# --bare参数一定要有，注意顺序
+git init --bare xx.git 
+# 第一次使用空仓库要通过push来定义master
+git add .
+git commit -am "ss"
+git push -u origin master
+
+######## windows检出仓库 ######
+# (origin名称可自定)
+git init
+git remote add origin git@ip:/somepath/git 
+git remote add origin git@github.com:imaoda/projectName.git 
+# 第一通过这两个命令打通，后续只用pull push 无需参数
+git pull origin master
+git push -u origin master
+
+######## linux钩子检出仓库 ######
+# 首先确保自己ssh自己免密，在制定路径（/data/www/imaoda.com/g）初始化（有权限）
+cd /data/www/imaoda.com/g
+git init 
+git remote add origin git@localhost:/somepath/git
+# 第一通过这两个命令打通，后续只用pull push 无需参数
+git pull origin master
+git push -u origin master
+# 修改远程库中的钩子,并确认git账户keep执行
+vi /somepath/git/post-update
+#!/bin/sh
+cd /somepath/imaoda.com/g && unset GIT_DIR && git pull
+# 这里unset GIT_DIR 一定要加
+```
 
 
 
