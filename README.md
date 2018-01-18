@@ -136,3 +136,97 @@ service mysqld start/stop/restart/status
 
 >理论上讲，配置/etc/profile 就可以全用户配置，配置完成后需重启，把别名、环境变量放在自启动脚本里，可实现开机初始化
 
+**别名**可以把长串命令用一个字符串代替  
+
+别名 | 配置命令
+---- | ----
+进入特定目录	| alias www1 = cd /data/wwwroot/
+修改特定配置	| alias conf1 = vi /usr/local/nginx/conf/nginx.conf
+
+#### 环境变量
+
+变量名 | 释义
+---- | ----
+JAVA_HOME	| jdk的安装路径(不含bin)，如：JAVA_HOME=/usr/lib/jvm/java-1.8
+CLASSPATH	| java类的查找目录，.:/usr/lib/jvm/java-1.8/lib/dt.jar:/usr/lib/jvm/java-1.8/lib/tools.jar
+PATH	| /usr/local/bin:/usr/sbin:/usr/bin
+
+为了便于管理，PATH默认这三个足够。后续安装软件如需任意路径执行，可向/usr/local/bin中添加软链
+```javascript
+ln -s /usr/local/spark/bin/spark /usr/local/bin/spark
+软链名字最好与程序名一致，使用统一
+如果该路径下有多个执行程序，一一添加麻烦，可加入path
+```
+设置别名/环境变量案例
+```javascript
+vi ~/.bashrc
+# vi ~/.bash_profile
+export JAVA_HOME=/usr/lib/jvm/java-1.7
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH=$PATH:$JAVA_HOME/bin
+alias rm='rm -i'
+alias wb="cd /data/wwwroot/temp/ant && npm run build"
+```
+
+## 防火墙
+默认屏蔽一切外部的访问，随着应用的安装逐渐开放端口（诸如80）。如果不打开对应端口，应用就无法通信。  
+
+>当然关闭防火墙很简单粗暴，但是不安全
+```javascript
+启动/自启动防火墙
+service  iptables start/stop/restart
+chkconfig iptables on/off
+
+打开某端口
+iptables -I INPUT 4 -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT
+service iptables save
+
+查询已打开端口
+iptables -L -n  查看开了哪些端口号
+iptables -L     查看那个应用开的
+```
+>centos6使用的iptable，centos7有较大变化
+
+## 定时任务
+每个用户可设定自己的定时任务crontab，注意定时任务是对“账户”设置的  
+```javascript
+编辑
+crontab -e 可以编辑/删除
+
+格式：分钟(0-59) 小时 日期 月份 周 命令   *表示都ok ,表示枚举都ok -表示时间段都ok */n表示每隔时间段
+20 8 */2 3-6 * /home/test.sh  表示春天每隔一天每天8:20发(注意如果php需要写绝对路径)  
+27 * * * * /usr/local/php/bin/php /data/wwwroot/default/edu/spiderSina.php
+
+在crontab中执行的脚本，一定要注意程序内的文件路径，相对路径是不可以的，程序中建议用 __dirname, __filename
+可用path模块来获取
+```
+
+## vim编辑器
+虽然我们一般在 vs-code 里写代码，但是直接在linux上改个配置啥的还是要用 vim ，常用操作：  
+
+命令 | 操作 
+---- | ----
+命令模式	| esc ： 例如输入:wq表示保存退出
+编辑模式	| aeiou 都可以触发编辑
+查询关键字	| ?query 向前查找； /query 向后查找； n继续找
+快速翻页	| 30↓可快速移动光标，←↑↓→都可以，也可pageUp/pageDown
+删除	| 10dd 删除光标所在向下20行
+复制	| 10yy 下乡复制10行
+撤销	| u
+
+## 其他配置 
+ip配置  
+``` javascript
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+```
+dns配置
+```javascript 
+vi /etc/resolv.conf
+加入：
+nameserver 10.100.29.35
+nameserver 202.106.46.151
+nameserver 10.202.72.116
+```
+
+
+
