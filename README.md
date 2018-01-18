@@ -1,4 +1,4 @@
-本文章内容收录在一位同事的博客，记录的都是一些最常用的Linux操作和命令，为了方便自己学习和查阅，同时也为了加深记忆，故收录在此！也欢迎大家对我同事的github进行关注[@imaoda](https://github.com/imaoda)
+本文章内容收录自一位同事的博客，记录的都是一些最常用的Linux操作和命令，为了方便自己学习和查阅，同时也为了加深记忆，故收录在此！也欢迎大家对我同事的github进行关注[@imaoda！](https://github.com/imaoda)
 
 ## 基础操作
 命令 | 操作 | 备注
@@ -47,6 +47,24 @@ Linux默认目录的作用：
 /etc	| 配置：账密、开机启动、hosts修改
 ~/.bashrc | 修改当前用户的环境变量，source ~/.bashrc生效
 
+## 权限
+ls 同时列出用户对文件的权限：  
+- 文件权限:d/-[owner权限][group权限][other权限]
+- owner：如maoda  
+- group：如dimpt  
+
+root可更改文件的归属，以及设定权限：  
+目的 | 命令  
+---- | ----
+更换所有权	| chown [-R] group:owner path/file
+更改权限	| chmod [-R] 777 path/file  
+
+权限rwx对应的意义如下：  
+权限	| 对于文件 |	对于目录
+---- | ----- |----
+r	| 可读取 |	可查看(ls)
+w	| 可编辑	| 可在该目录下增改删
+x |	可执行	| 可进入目录(cd)
 
 
 
