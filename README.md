@@ -34,8 +34,8 @@
 
 Linux默认目录的作用：
 目录 | 作用
-----|------
-/usr/bin	 | 非必须用户命令：gcc make
+----|----
+/usr/bin | 非必须用户命令：gcc make
 /usr/sbin	| 非必须系统命令：httpd sendmail
 /bin	| 必须用户命令：mkdir cp
 /sbin	| 必须系统命令(需root)：reboot fdisk
