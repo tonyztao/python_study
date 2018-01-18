@@ -227,6 +227,22 @@ nameserver 10.100.29.35
 nameserver 202.106.46.151
 nameserver 10.202.72.116
 ```
+>网络相关配置完毕后 service network restart
+
+## 软件安装
+#### 基础工具
+yum 是linux用来安装软件的工具，其特点：
+
+自动安装依赖
+* 默认目录，并自动创建软链和服务
+* 可通过rpm -qa |grep xxx 看某程序是否是npm安装的
+* 再通过rpm -ql | grep 完整名 看安装位置
+
+
+
+
+
+
 
 
 
