@@ -32,7 +32,8 @@
 
 > 如果某个应用只有一个执行文件，如node、npm，可将其软链放置到/usr/local/bin中，并添加到path中，避免path中过多路径
 
-Linux默认目录的作用：
+Linux默认目录的作用：  
+
 目录 | 作用
 ----|----
 /usr/bin | 非必须用户命令：gcc make
