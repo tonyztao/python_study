@@ -238,6 +238,16 @@ yum 是linux用来安装软件的工具，其特点：
 * 可通过rpm -qa |grep xxx 看某程序是否是npm安装的
 * 再通过rpm -ql | grep 完整名 看安装位置
 
+>有些软件系统自带，并非yum安装的，可用 which 查看一下是否可用，如 which wget
+
+yum 需先配置镜像源，镜像源配置如下：
+
+```python 
+描述文件
+/etc/yum.repos.d/xxx.repo
+名字后缀为.repo即可
+```
+
 
 
 
