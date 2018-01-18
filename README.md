@@ -125,5 +125,14 @@ service mysqld start/stop/restart/status
  
 如果你的位置信息通过一个环境变量来记录，更换后，只需修改环境变量即可，否则要去各个地方一一修改。
 
+#### 自启脚本
 
+文件 | 描述
+---- | ----
+~/.bashrc	| 随sh执行，当前用户，别名和函数。
+~/.bash_profile	| 登录执行，当前用户，系统环境
+/etc/bashrc	| 随sh执行，全用户，别名和函数。加载/etc/profile.d/中sh
+/etc/profile	| 登录执行，全用户，系统环境。加载/etc/profile.d/中sh
+
+>理论上讲，配置/etc/profile 就可以全用户配置，配置完成后需重启，把别名、环境变量放在自启动脚本里，可实现开机初始化
 
