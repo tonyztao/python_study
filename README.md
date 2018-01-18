@@ -100,10 +100,10 @@ linux有7种运行等级，一般运行在等级3，开机后：
 ### 手动开关服务(了解即可)
 所有的服务类应用放init.d里，自启动的在rc3.d里建个软链   
 
-'''javascript
+```javascript
 /etc/init.d/
 mysqld php-fpm pureftpd nginx/httpd redis-server
-'''
+```
 
 ## 环境变量
 
