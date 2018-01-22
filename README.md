@@ -19,7 +19,7 @@
 查端口	| netstat -npl	(拿破仑) | 本地ip:端口 对端ip pid uid
 环境变量 |	env	| 环境变量多渠道可设，env查看当前用户最终结果
 修改环境 |	export可定义 |	不过重启失效
-开机启动 |chkconfig	| chkconfig on xxx 开机自启动
+开机启动 |chkconfig	| chkcogit rm命令删掉要删除的文件。具体命令是 git rm 文件名，大家可以把rm当做remove的缩写，方便记忆nfig on xxx 开机自启动
 关机 | /sbin/shutdown -h now |
 重启 | reboot |
 打开服务 |	service XXX start	| restart重启 stop停止
