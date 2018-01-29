@@ -1,5 +1,8 @@
 Python学习记录，字典速查。
-
+ import seaborn as sns
+sns.set(style="ticks")
+exercise = sns.load_dataset("exercise")
+g = sns.factorplot(x="time", y="pulse", hue="kind", data=exercise)
 ## 常用语法篇
 
 ### 文件读写
@@ -56,6 +59,7 @@ df.to_csv('lte_4g_result.csv')
 
 ### 文件以及文件夹等系统路径
 python中经常需要处理文件和文件夹，python中os模块用于处理和文件以及文件夹的相关操作。import os
+
 命令 | 操作 
 ----|----
 判断是否是个目录 | os.path.isdir() 
