@@ -54,6 +54,412 @@ import pandas as pd
 df.to_csv('lte_4g_result.csv') 
 ```
 
+### 文件以及文件夹等系统路径
+python中经常需要处理文件和文件夹，python中os模块用于处理和文件以及文件夹的相关操作。import os
+命令 | 操作 
+----|----
+判断是否是个目录 | os.path.isdir() 
+判断是否是个文件 | os.path.isfile() 
+判断文件是否存在 | os.path.exists() 
+获取当前工作目录 | os.getcwd() 
+获取文件大小 | os.path.getsize(pathfile) #单位字节
+获取文件名 |os.path.basename()
+执行shell | os.system("./test.sh")
+改变工作目录 | os.chdir() #os.chdir("D:\\")
+列出目录下的文件 | os.listdir()　
+创建单个目录 | os.mkdir()　　# os.mkdir("test_mkdir")
+创建多级目录 | 　os.makedirs() # os.makedirs("test_mkdir\\test1")
+删除空文件夹 | os.rmdir()  #要求必须为空文件夹
+删除单一文件 | os.remove() 
+重命名文件 | os.rename(oldfileName, newFilename)
+复制文件，都只能是文件 | shutil.copyfile("old","new") 
+复制文件/文件夹 | shutil.copy("old","new") #new既可以为文件夹也可以为文件，文件夹时候必须为存在的文件夹
+复制整个目录 | shutil.copytree("old","new") #都只能是目录，且new必须不存在
+移动文件/文件夹至 | shutil.move("old","new") # 移动文件/文件夹至 new 文件夹中
+将path分割成目录和文件名 | os.path.split(path) #二元组返回
+多个路径组合后返回 |os.path.join(path1,path2)
+
+
+### 其他常用操作
+
+- 字符串格式化 .format()
+```python
+'my name is {name},age is {age}'.format(name='hoho',age=19)
+#另外一种类似用法
+usernum_all='result_%s_user_all_operator'%city_name
+```
+
+- 匿名函数lambda  
+匿名函数本质上是一个函数,更易读
+``` python
+#将一个 list 里的每个元素都平方：
+map( lambda x: x*x, [y for y in range(10)] )
+# lambda if else用法
+map(lambda x: str(x)[0:-1] if len(str(x))==15 else x)
+```
+
+- 同时处理多个列表
+``` python
+ta = [1,2,3]
+tb = [9,8,7]
+tc = ['a','b','c']
+for (a,b,c) in zip(ta,tb,tc):
+    print(a,b,c)
+```
+- enumerate用法  
+利用enumerate可以同时获得索引和值
+```python
+# 对一个列表，既要遍历索引又要遍历元素时,使用enumerate
+list1 = ["这", "是", "一个", "测试"]
+for index, item in enumerate(list1):
+    print index, item
+>>>
+0 这
+1 是
+2 一个
+3 测试
+```
+- 推导式  
+列表的解析式
+``` python
+#10个元素放进列表的方法对比：
+#第一种，普通方法：
+a=[]
+for i in range(1,11):
+    a.append(i)
+#第二种列表解析式法：
+b =[i for i in range(1,11)]
+```
+
+
+### 作图
+在python里面常用的作图模块有，matplotlib和seaborn
+引入方法
+``` python
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline  #notebook模式下要加入，用于图片内嵌在交互窗口
+```
+- matplotlib
+##### plt.figure()
+可以多次使用figure命令来产生多个图，其中图片号按顺序增加。  
+plt.subplot(2,3,1)表示把图标分割成2*3的网格。也可以简写plt.subplot(231)。其中，第一个参数是行数，第二个参数是列数，第三个参数表示图形的标号
+```python 
+plt.figure(1)                # 第一张图
+plt.subplot(211)             # 第一张图中的第一张子图
+plt.plot([1,2,3])
+plt.subplot(212)             # 第一张图中的第二张子图
+plt.plot([4,5,6])
+ 
+plt.figure(2)                # 第二张图
+plt.plot([4,5,6])            # 默认创建子图subplot(111)
+plt.figure(1)                # 切换到figure 1 ; 子图subplot(212)仍旧是当前图
+```
+```python
+#subplot可以规划figure划分为n个子图，但每条subplot命令只会创建一个子图
+import matplotlib.pyplot as plt
+x = np.arange(0, 100)  
+#作图1
+plt.subplot(221)  
+plt.plot(x, x)  
+#作图2
+plt.subplot(222)  
+plt.plot(x, -x)  
+ #作图3
+plt.subplot(223)  
+plt.plot(x, x ** 2)  
+plt.grid(color='r', linestyle='--', linewidth=1,alpha=0.3)
+#作图4
+plt.subplot(224)  
+plt.plot(x, np.log(x))  
+plt.show()  
+
+#方法二：
+#划分子图
+fig,axes=plt.subplots(2,2)
+ax1=axes[0,0]
+ax2=axes[0,1]
+ax3=axes[1,0]
+ax4=axes[1,1]
+
+#作图1
+ax1.plot(x, x)  
+#作图2
+ax2.plot(x, -x)
+ #作图3
+ax3.plot(x, x ** 2)
+ax3.grid(color='r', linestyle='--', linewidth=1,alpha=0.3)
+#作图4
+ax4.plot(x, np.log(x))  
+plt.show() 
+```
+##### plt.text()
+text()可以在图中的任意位置添加文字，并支持LaTex语法  
+xlable(), ylable()用于添加x轴和y轴标签  
+title()用于添加图的题目
+```python
+import matplotlib.pyplot as plt
+
+mu, sigma = 100, 15
+x = mu + sigma * np.random.randn(10000)
+
+# 数据的直方图
+n, bins, patches = plt.hist(x, 50, normed=1, facecolor='g', alpha=0.75)
+
+plt.xlabel('Smarts')
+plt.ylabel('Probability')
+#添加标题
+plt.title('Histogram of IQ')
+#添加文字
+plt.text(60, .025, r'$mu=100, sigma=15$')
+plt.axis([40, 160, 0, 0.03])
+plt.grid(True)
+plt.show()
+```
+##### 其他常用
+```python
+plt.legend(loc='upper left') #添加图例  
+savefig("exercice_2.png",dpi=72) #保存图片    
+pl.plot(x,y,linestyle='--',marker='*',color='red',linewidth=2)#参数说明linestyle 线条种类，marker 折点 ，color 颜色， linewidth 线条宽度(越大越粗)， label 该线条的标签，需要legend函数定位才能显示。
+plt.title('About as simple as it gets, folks')#图的标签
+ax.set_ylabel(u'成交量(套)')   #设置坐标轴名称
+ax.set_xlabel(u'交易日') 
+```
+##### 画图种类以及对应的函数
+```python
+# '.'标明画散点图，每个散点的形状是个圆
+plt.plot(x, y, '.')
+
+# scatter可以更容易地生成散点图
+plt.scatter(x, y)
+
+# plot函数默认画连线图
+plt.plot(x, y)
+
+# plot画柱状图
+import matplotlib.pyplot as plt
+import numpy as np
+
+n = 12
+X = np.arange(n)
+Y1 = (1 - X/float(n)) * np.random.uniform(0.5, 1.0, n)
+Y2 = (1 - X/float(n)) * np.random.uniform(0.5, 1.0, n)
+
+plt.figure(figsize=(12, 8))
+plt.bar(X, +Y1, facecolor='#9999ff', edgecolor='white')
+plt.bar(X, -Y2, facecolor='#ff9999', edgecolor='white')
+
+for x, y in zip(X,Y1):
+    # ha: horizontal alignment水平方向
+    # va: vertical alignment垂直方向
+    plt.text(x, y+0.05, '%.2f' % y, ha='center', va='bottom')
+
+for x, y in zip(X,-Y2):
+    # ha: horizontal alignment水平方向
+    # va: vertical alignment垂直方向
+    plt.text(x, y-0.05, '%.2f' % y, ha='center', va='top')
+
+# 定义范围和标签
+plt.xlim(-.5, n)
+plt.xticks(())
+plt.ylim(-1.25, 1.25)
+plt.yticks(())
+
+plt.show()
+
+
+# plot画直方图
+# bins是分段，显示数据在各个区间的个数
+import matplotlib.pyplot as plt
+population_ages = [22,55,62,45,21,22,34,42,42,4,99,102,110,120,121,122,130,111,115,112,80,75,65,54,44,43,42,48]
+bins = [0,10,20,30,40,50,60,70,80,90,100,110,120,130]
+
+plt.hist(population_ages, bins, histtype='bar', rwidth=0.8)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Interesting Graph\nCheck it out')
+plt.legend()
+plt.show()
+
+
+#画饼图
+import matplotlib.pyplot as plt
+slices = [7,2,2,13]
+activities = ['sleeping','eating','working','playing']
+cols = ['c','m','r','b']
+plt.pie(slices,
+        labels=activities,
+        colors=cols,
+        startangle=90,
+        shadow= True,
+        explode=(0,0.1,0,0),
+        autopct='%1.1f%%')
+
+plt.title('Interesting Graph\nCheck it out')
+plt.show()
+```
+- seaborn
+```python
+#distplot( )为hist加强版
+import matplotlib.pyplot as plt  
+import seaborn as sns  
+from sklearn import datasets
+import pandas as pd 
+
+
+data = datasets.load_iris()
+df_iris = pd.DataFrame(data.data,columns=data.feature_names)
+name =[data.target_names[x]  for x in data.target]
+df_iris['class']= pd.DataFrame(name)
+fig=plt.figure(1) 
+sns.distplot(df_iris['sepal length (cm)'], kde = True)# kde 密度曲线  rug 边际毛毯                      
+plt.show()  
+
+#示例
+import numpy as np  
+import seaborn as sns  
+import matplotlib.pyplot as plt  
+sns.set( palette="muted", color_codes=True)  
+rs = np.random.RandomState(10)  
+d = rs.normal(size=100)  
+f, axes = plt.subplots(2, 2, figsize=(7, 7), sharex=True)  
+sns.distplot(d, kde=False, color="b", ax=axes[0, 0])  
+sns.distplot(d, hist=False, rug=True, color="r", ax=axes[0, 1])  
+sns.distplot(d, hist=False, color="g", kde_kws={"shade": True}, ax=axes[1, 0])  
+sns.distplot(d, color="m", ax=axes[1, 1])  
+plt.show()  
+
+
+
+#boxplot
+import matplotlib.pyplot as plt  
+import seaborn as sns  
+import matplotlib.pyplot as plt  
+import seaborn as sns  
+from sklearn import datasets
+import pandas as pd 
+
+
+data = datasets.load_iris()
+df_iris = pd.DataFrame(data.data,columns=data.feature_names)
+name =[data.target_names[x]  for x in data.target]
+df_iris['class']= pd.DataFrame(name)
+sns.boxplot(x = df_iris['class'],y = df_iris['sepal length (cm)'])  
+plt.show()  
+
+# 按照某一特征进行分类统计，如下示例通过性别进行统计
+import seaborn as sns
+%matplotlib inline 
+sns.set(style="ticks")
+# Load the example tips dataset
+tips = sns.load_dataset("tips")
+# Draw a nested boxplot to show bills by day and sex
+sns.boxplot(x="day", y="total_bill", hue="sex", data=tips)
+
+#联合分布 两个变量之间的相关性 皮尔森相关系数
+sns.jointplot("total_bill", "tip", tips)  
+sns.jointplot("total_bill", "tip", tips, kind='reg')  
+plt.show() 
+
+#heatmap
+#correlation matrix 相关矩阵，考察变量两两相关性
+corrmat = df_train.corr()
+f, ax = plt.subplots(figsize=(12, 9))
+sns.heatmap(corrmat,square=True, linewidths=.5, annot=True)
+
+#热度图，先操作一个透视汇总，然后通过热度图观察分布
+pt = df.pivot_table(index='kind', columns='region', values='values', aggfunc=np.sum)
+sns.heatmap(pt, linewidths = 0.05)
+
+
+#pairplot
+import matplotlib.pyplot as plt  
+import seaborn as sns  
+import matplotlib.pyplot as plt  
+import seaborn as sns  
+from sklearn import datasets
+import pandas as pd 
+data = datasets.load_iris()
+df_iris = pd.DataFrame(data.data,columns=data.feature_names)
+name =[data.target_names[x]  for x in data.target]
+df_iris['class']= pd.DataFrame(name)
+sns.pairplot(df_iris,hue="class")   #hue 选择分类列  
+ # 选择两个参数进行作图 参数vars进行控制
+sns.pairplot(df_iris, vars=["sepal width (cm)", "sepal length (cm)"],hue='class',palette="husl") 
+plt.show()  
+
+#factorplot x轴为分类
+sns.factorplot('workclass','income', data=adult_data_train_df,size=8)
+sns.factorplot(x="year", data=planets, kind="count",size=6, aspect=1.5, order=years)
+#示例
+ import seaborn as sns
+sns.set(style="ticks")
+exercise = sns.load_dataset("exercise")
+g = sns.factorplot(x="time", y="pulse", hue="kind", data=exercise)
+```
+
+
+### 数据库连接
+#### mysql数据库
+```python
+#方法一pymysql
+import pymysql
+db='phone_data_chifeng_0228'
+conn = pymysql.connect(host='10.100.26.201', port=3306, user='root', passwd='ChinaUnicom!#24', db=db)
+cursor = conn.cursor()
+sql = 'select * from result_sample_all_num'
+cursor.execute(sql)
+rows = cursor.fetchall()
+cursor.close()
+```
+```python
+#方法二MySQLdb
+import MySQLdb
+cxn = MySQLdb.connect(host = 'localhost', port=3306,user = 'root', passwd = 'ChinaUnicom!#24',db='quater_app')
+cur = cxn.cursor()
+sql_load = '''LOAD DATA LOCAL INFILE '%s' INTO TABLE app_data_http FIELDS TERMINATED BY '\t'  OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n';'''%(DestDir)
+cur.execute(sql_load)
+cur.close()
+cxn.commit()
+cxn.close()
+```
+
+#### mongodb数据库
+```python
+from pymongo import MongoClient
+host = "localhost"
+port = 27017
+client = MongoClient(host,port)
+db = client['test']
+sheet = db['sheet_test']
+
+for i in range(1001):
+    print (i)
+    sheet.insert_one({
+        'name': "name" + str(i),
+        "age": i,
+    })
+```
+	
+#### impala数据库
+```python
+from impala.dbapi import connect
+conn = connect(host='10.100.28.161', port=21050, user='wangyf', password='unicom2016', database='wangyftest')
+cursor = conn.cursor()
+sqlsamplenum = 'select * from result_sample_all_num'
+cursor.execute(sqlsamplenum)
+rows1 = cursor.fetchall()
+```
+
+#### 读取urllib api等，返回json数据
+```python
+import urllib
+url=r'https://api.imaoda.com/'
+req = urllib.request.Request(url) 
+response = urllib.request.urlopen(req) 
+page = response.read()
+page = page.decode('utf-8')
+```
 ## 数据处理篇
 
 ### Numpy
