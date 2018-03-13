@@ -28,7 +28,11 @@
 创建软链 | ln -s file link	| 快捷方式，可放在path定义的目录下
 后台运行 | nohup command &	| 退出终端需要用exit，否则程序中断
 远程拷贝 |	scp file root@ip:/root	| 最好先ssh免密
-流量监控 | ifstat	| 查看上传下载流量  
+流量监控 | ifstat	| 查看上传下载流量  
+数据传输上传 | rz | 上传文件只需在shell终端仿真器中输入命令"rz"
+数据传输下载 | sz 文件名 | 下载文件只需在shell终端仿真器中输入命令"sz 文件名"
+查看磁盘剩余空间 | df -lh |
+查看当前目录下一级子文件和子目录占用的磁盘容量 | du -lh --max-depth=1 |
 
 > 如果某个应用只有一个执行文件，如node、npm，可将其软链放置到/usr/local/bin中，并添加到path中，避免path中过多路径
 
